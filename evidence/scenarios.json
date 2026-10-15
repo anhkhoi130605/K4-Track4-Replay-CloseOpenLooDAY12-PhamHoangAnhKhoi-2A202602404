@@ -1,0 +1,71 @@
+{
+  "student": {
+    "student_id": "2A202602404",
+    "split_seed": 5760,
+    "model_seed": 7490,
+    "v_ego": 10.0
+  },
+  "worked_example": {
+    "ttc_s": 2.4,
+    "required_decel": 1.0416666666666667
+  },
+  "mined": {
+    "events": 614,
+    "share": 0.06389177939646203,
+    "peak_decel_p50": -2.534939593672976,
+    "peak_decel_p99": -4.210938648518925,
+    "human_brake_limit_p99.9": 3.6248373480294913
+  },
+  "grid": {
+    "v_ego": 10.0,
+    "gap_range": [
+      2.7600510475215008,
+      59.3123262996913
+    ],
+    "dv_range": [
+      0.0,
+      10.0
+    ],
+    "share_beyond_human_brake_limit": 0.052222222222222225
+  },
+  "validation_full_brake_vs_physics": {
+    "t_react_0.0": {
+      "unavoidable_area": 0.00962962962962963,
+      "full_brake_collision_area": 0.00962962962962963,
+      "mismatch_cells_away_from_frontier": 0,
+      "cells": 2695
+    },
+    "t_react_0.6": {
+      "unavoidable_area": 0.05148148148148148,
+      "full_brake_collision_area": 0.05148148148148148,
+      "mismatch_cells_away_from_frontier": 0,
+      "cells": 2681
+    }
+  },
+  "baseline_grids": {
+    "const-vel_t_react_0.0": {
+      "collision_area": 0.7337037037037037,
+      "unavoidable_area": 0.00962962962962963,
+      "attributable_area": 0.7240740740740741
+    },
+    "const-vel_t_react_0.6": {
+      "collision_area": 0.7337037037037037,
+      "unavoidable_area": 0.05148148148148148,
+      "attributable_area": 0.6822222222222222
+    },
+    "IDM_t_react_0.0": {
+      "collision_area": 0.00962962962962963,
+      "unavoidable_area": 0.00962962962962963,
+      "attributable_area": 0.0
+    },
+    "IDM_t_react_0.6": {
+      "collision_area": 0.05148148148148148,
+      "unavoidable_area": 0.05148148148148148,
+      "attributable_area": 0.0
+    }
+  },
+  "coverage": {
+    "mined_events": 614,
+    "grid_cells": 2700
+  }
+}

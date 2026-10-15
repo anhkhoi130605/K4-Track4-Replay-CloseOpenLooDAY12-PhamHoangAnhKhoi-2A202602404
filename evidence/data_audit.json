@@ -1,0 +1,39 @@
+{
+  "rows": 992679,
+  "trajectories_raw": 9993,
+  "exact_duplicates_removed": 383,
+  "trajectories_clean": 9610,
+  "steps_min_median_max": [
+    70,
+    106.0,
+    109
+  ],
+  "dt_s": 0.1,
+  "gap_equals_pos_diff_minus_length": {
+    "mean_offset_m": 4.499999999999993,
+    "max_abs_dev_m": 3.638334078459593e-11
+  },
+  "acc_lead_column_corr_with_dv_dt": 0.04535359629037126,
+  "acc_follower_column_corr_with_dv_dt": 0.9290867466753292,
+  "lead_speed_quantiles_m_s_p1_p50_p99": [
+    0.3442020251325376,
+    8.063122305063752,
+    15.554903942526959
+  ],
+  "follower_speed_quantiles_m_s_p1_p50_p99": [
+    0.7520946558057985,
+    8.179941764198631,
+    17.828678407935072
+  ],
+  "gap_quantiles_m_p1_p50_p99": [
+    2.1499381741008863,
+    13.331134906963024,
+    72.82926583019832
+  ],
+  "lead_decel_smoothed_quantiles_p0.1_p1_p50": [
+    -2.769123302015074,
+    -1.950220714461102,
+    0.047499658216878515
+  ],
+  "verdict": "Acc_LV is not usable (corr with d(speed)/dt ~ 0): derive lead acceleration from smoothed Speed_LV. Duplicates exist at far-apart ids, so a naive split can leak."
+}

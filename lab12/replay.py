@@ -122,9 +122,53 @@ def compare_with_tol(golden, new, atol=1e-3, rtol=1e-3):
     #   * |golden|. Hai NaN ở cùng vị trí coi là bằng nhau. Trả dict có đúng các khoá: segments,
     #   differ_beyond_tol, not_bit_identical (số đoạn không giống TỪNG BIT), max_abs_diff, atol, rtol,
     #   differing_segments (tối đa 20 chỉ số đầu, dạng list).
-    raise NotImplementedError("TODO compare_with_tol: xem GUIDE.md, Bước 1")
+    golden = np.asarray(golden)
+    new = np.asarray(new)
+    n_seg = golden.shape[0]
+    # 1. Mặt nạ xác định vị trí NaN
+    nan_golden = np.isnan(golden)
+    nan_new = np.isnan(new)
+    # 2. Hai NaN ở cùng vị trí coi là bằng nhau; lệch nếu một bên NaN một bên không
+    nan_mismatch = (nan_golden != nan_new)
+    # 3. So sánh chính xác từng bit (Bit-identical)
+    # np.array_equal với equal_nan=True kiểm tra NaN == NaN,
+    # nhưng ở mức element-wise ta dùng: (golden == new) HOẶC cả hai đều là NaN.
+    # Lưu ý: float bit-identical với NaN thông thường thỏa mãn khi cả hai đều là NaN.
+    bit_equal_mask = (golden == new) | (nan_golden & nan_new)
+    # Một segment không bit-identical nếu có bất kỳ phần tử nào khác nhau
+    not_bit_identical_seg = ~np.all(bit_equal_mask, axis=1)
+    not_bit_identical = int(np.sum(not_bit_identical_seg))
+    # 4. So sánh theo dung sai (tolerance)
+    # Chỉ tính độ lệch trên những vị trí mà cả hai đều là số thực (valid)
+    valid_mask = ~nan_golden & ~nan_new
+    abs_diff = np.zeros_like(golden, dtype=float)
+    abs_diff[valid_mask] = np.abs(golden[valid_mask] - new[valid_mask])
 
+    tol = atol + rtol * np.abs(golden)
+    # Một vị trí bị coi là vượt ngưỡng nếu:
+    # - Một bên là NaN còn bên kia là số (nan_mismatch)
+    # - HOẶC chênh lệch vượt quá sai số cho phép: |golden - new| > atol + rtol * |golden|
+    exceed_tol = nan_mismatch | (valid_mask & (abs_diff > tol))
+    # Segment bị lệch nếu có ít nhất 1 phần tử vượt ngưỡng
+    seg_differs = np.any(exceed_tol, axis=1)
+    differ_beyond_tol = int(np.sum(seg_differs))
+    differing_segments = np.flatnonzero(seg_differs)[:20].tolist()
+    # 5. Độ lệch tuyệt đối lớn nhất trên các phần tử hợp lệ
+    # Nếu không có phần tử số nào (hoặc toàn NaN lệch nhau), fallback về NaN hoặc giá trị hợp lý
+    if np.any(valid_mask):
+        max_abs_diff = float(np.max(abs_diff[valid_mask]))
+    else:
+        max_abs_diff = 0.0
 
+    return {
+        "segments": int(n_seg),
+        "differ_beyond_tol": differ_beyond_tol,
+        "not_bit_identical": not_bit_identical,
+        "max_abs_diff": max_abs_diff,
+        "atol": float(atol),
+        "rtol": float(rtol),
+        "differing_segments": differing_segments,
+    }
 def summation_order_demo(n=1_000_000, seed=0):
     """Why two replays are never bit-identical: float addition is not associative."""
     x = np.random.default_rng(seed).standard_normal(n).astype(np.float32)
