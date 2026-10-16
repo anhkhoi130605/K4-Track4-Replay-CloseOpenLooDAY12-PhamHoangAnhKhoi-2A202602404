@@ -7,23 +7,19 @@ from . import config as C
 
 def ttc(gap, closing):
     """Time to collision [s] = gap / closing speed (inf when the gap is not closing)."""
-    # TODO (Bước 2): hãy tự cài hàm này. Gợi ý:
-    #   TTC = gap / closing khi closing > 0, ngược lại inf. Phải chạy được trên mảng numpy (dùng np.where,
-    #   tránh chia cho 0).
     closing = np.asarray(closing)
     gap = np.asarray(gap)
-    TTC = np.where(closing > 0, gap / closing, np.inf)
+    safe_closing = np.where(closing > 0, closing, 1.0)
+    TTC = np.where(closing > 0, gap / safe_closing, np.inf)
     return TTC
 
 
 def required_decel(gap, closing):
     """Deceleration [m/s^2] needed to remove the closing speed exactly at contact: closing^2 / (2 gap)."""
-    # TODO (Bước 2): hãy tự cài hàm này. Gợi ý:
-    #   closing^2 / (2 * gap) khi closing > 0, ngược lại 0. Ví dụ của slide: gap 12 m, closing 5 m/s -> 1,04
-    #   m/s^2.
     closing = np.asarray(closing)
     gap = np.asarray(gap)
-    required = np.where(closing > 0, closing**2 / (2 * gap), 0)
+    safe_gap = np.where(gap > 0, gap, 1.0)
+    required = np.where((closing > 0) & (gap > 0), closing**2 / (2 * safe_gap), 0.0)
     return required
 
 

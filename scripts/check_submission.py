@@ -33,7 +33,7 @@ def load(name):
     if not p.exists():
         return None
     try:
-        return json.loads(p.read_text())
+        return json.loads(p.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
         return None
 
@@ -42,7 +42,7 @@ def report_fields():
     p = ROOT / "REPORT.md"
     if not p.exists():
         return None, None
-    text = p.read_text()
+    text = p.read_text(encoding="utf-8")
     m = re.search(r"\|\s*MSSV[^|]*\|\s*`?([^`|\n]+?)`?\s*\|", text)
     return (m.group(1).strip() if m else None), text
 
@@ -178,7 +178,7 @@ def main():
     print(summary)
     if a.save_verify:
         EVID.mkdir(exist_ok=True)
-        (EVID / "verify.txt").write_text("\n".join(OUT) + summary + "\n")
+        (EVID / "verify.txt").write_text("\n".join(OUT) + summary + "\n", encoding="utf-8")
         print("saved evidence/verify.txt")
     return 1 if fails else 0
 
