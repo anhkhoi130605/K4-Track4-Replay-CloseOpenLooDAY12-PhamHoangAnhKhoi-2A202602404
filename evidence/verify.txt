@@ -1,0 +1,57 @@
+[PASS] evidence/data_audit.json exists and is valid JSON
+[PASS] evidence/replay.json exists and is valid JSON
+[PASS] evidence/scenarios.json exists and is valid JSON
+[PASS] evidence/openloop.json exists and is valid JSON
+[PASS] evidence/closedloop.json exists and is valid JSON
+[PASS] evidence/agents.json exists and is valid JSON
+[PASS] evidence/gate.json exists and is valid JSON
+[PASS] evidence/fix.json exists and is valid JSON
+[PASS] one student id in every evidence file (['2A202602404'])
+[PASS] one split seed in every evidence file (all steps were run with the same --student-id)
+[PASS] evidence was produced with a real student id, not the default 'demo'
+[PASS] data audit removed the exact duplicates
+[PASS] replay: same code twice gives identical commands
+[PASS] replay: refactor is not bit-identical but within tolerance in every segment (your compare_with_tol)
+[PASS] replay: the AEB change flags SOME segments, not none and not all
+[PASS] replay: real-time mode exposes late/dropped frames that 'fastest' mode hides
+[PASS] scenarios: simulator agrees with your `unavoidable` frontier (0 mismatching cells at both delays)
+[PASS] scenarios: 614 braking events mined (>= 100 expected)
+[PASS] openloop: all five planners scored
+[PASS] openloop: 3 training seeds (>= 3 needed)
+[PASS] openloop: the braking slice is a small share of the windows
+[PASS] closedloop: learned planners have >= 3 seeds
+[PASS] closedloop: scenario grid evaluated at both reaction delays
+[PASS] closedloop: at least one pair of planners changes order between open and closed loop
+[PASS] closedloop: PercMLP+ was evaluated (step 7 was run)
+[PASS] agents: calibrated IDM driver and both rear-vehicle worlds present
+[PASS] gate: a decision for every candidate
+[PASS] fix.json agrees with gate.json on PercMLP+
+[PASS] unit tests: Ran 25 tests in 0.787s / OK
+[PASS] REPORT.md has an MSSV (2A202602404)
+[PASS] MSSV in REPORT.md equals the student id used for the run
+[PASS] REPORT.md: 'Họ và tên' is filled
+[PASS] REPORT.md: 'GitHub' is filled
+[PASS] REPORT.md has the 8 question sections
+[PASS] Câu 1: answered (1057 characters)
+[PASS] Câu 1: quotes numbers from your evidence (11 numbers found)
+[PASS] Câu 2: answered (1295 characters)
+[PASS] Câu 2: quotes numbers from your evidence (31 numbers found)
+[PASS] Câu 3: answered (1141 characters)
+[PASS] Câu 3: quotes numbers from your evidence (22 numbers found)
+[PASS] Câu 4: answered (1302 characters)
+[PASS] Câu 4: quotes numbers from your evidence (30 numbers found)
+[PASS] Câu 5: answered (891 characters)
+[PASS] Câu 5: quotes numbers from your evidence (22 numbers found)
+[PASS] Câu 6: answered (1313 characters)
+[PASS] Câu 6: quotes numbers from your evidence (28 numbers found)
+[PASS] Câu 7: answered (1527 characters)
+[PASS] Câu 7: quotes numbers from your evidence (46 numbers found)
+[PASS] Câu 8: answered (1408 characters)
+[PASS] Câu 8: quotes numbers from your evidence (8 numbers found)
+[PASS] REPORT.md: the results table is filled
+[PASS] git: 5 commits of yours (>= 5 expected, spread over the steps)
+[PASS] git: no raw data or work/ files are tracked
+[PASS] git: evidence/*.json is committed
+[PASS] git: REPORT.md is committed
+[WARN] git: no uncommitted changes (commit and push before submitting)
+55 passed, 1 warnings, 0 FAILED

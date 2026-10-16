@@ -152,7 +152,7 @@
         },
         "R5_seed_stability": {
           "pass": true,
-          "detail": "0.1 .. 0.2 % over 5 run(s)",
+          "detail": "0.2 .. 0.2 % over 3 run(s)",
           "rule": "collision rate varies by <= 1 point across training seeds"
         },
         "R6_reactive_world": {
